@@ -996,7 +996,7 @@ function Output($dest='', $name='', $isUTF8=false)
 	{
 		case 'I':
 			// Send to standard output
-			$this->_checkoutput();
+			// $this->_checkoutput();
 			if(PHP_SAPI!='cli')
 			{
 				// We send to a browser
@@ -1009,7 +1009,7 @@ function Output($dest='', $name='', $isUTF8=false)
 			break;
 		case 'D':
 			// Download file
-			$this->_checkoutput();
+			// $this->_checkoutput();
 			header('Content-Type: application/x-download');
 			header('Content-Disposition: attachment; '.$this->_httpencode('filename',$name,$isUTF8));
 			header('Cache-Control: private, max-age=0, must-revalidate');

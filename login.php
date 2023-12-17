@@ -86,7 +86,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
           if ($rows > 0) {
           	$customer_id = $result['customer_id'];
-          	$queryCountTransaction = mysqli_query($con, "SELECT * FROM tblmaintransaction INNER JOIN tbldeliverytransaction ON tbldeliverytransaction.reference_id=tblmaintransaction.reference_id WHERE customer_id = '$customer_id' AND tbldeliverytransaction.return_id = 2 GROUP BY tbldeliverytransaction.reference_id");
+          	$queryCountTransaction = mysqli_query($con, "SELECT tbldeliverytransaction.reference_id FROM tblmaintransaction INNER JOIN tbldeliverytransaction ON tbldeliverytransaction.reference_id=tblmaintransaction.reference_id WHERE customer_id = '$customer_id' AND tbldeliverytransaction.return_id = 2 GROUP BY tbldeliverytransaction.reference_id");
           	$countRows = mysqli_num_rows($queryCountTransaction);
 
           	if ($countRows < 3)

@@ -64,7 +64,7 @@ session_start();
                         <div class="circle"></div>
                     </div>
                     <div class="gap-patch">
-                        <div class="circle"></div>
+                        <div class="circle"></div>179
                     </div>
                     <div class="circle-clipper right">
                         <div class="circle"></div>
@@ -176,7 +176,32 @@ session_start();
                                         <?php if(isset($_POST['search'])){
                                                 $supplier_id = $_POST['supplier'];
 
-                                                $querySumSales = mysqli_query($con, "SELECT *, SUM(amount) as amount FROM tblmaintransaction INNER JOIN tblshippingrate ON tblshippingrate.shippingrate_id=tblmaintransaction.shippingrate_id INNER JOIN tblsupplier ON tblsupplier.supplier_id=tblshippingrate.supplier_id INNER JOIN tblcustomer ON tblcustomer.customer_id=tblmaintransaction.customer_id INNER JOIN tbldeliverytransaction ON tbldeliverytransaction.reference_id=tblmaintransaction.reference_id INNER JOIN tbldeliveryman ON tbldeliveryman.deliveryman_id=tbldeliverytransaction.deliveryman_id WHERE tblmaintransaction.status_id = 2 AND tbldeliverytransaction.payed = 1 AND tblsupplier.supplier_id='$supplier_id'");
+                                                $querySumSales = mysqli_query($con, "SELECT 
+                                                tdate, 
+                                                date_deliver, 
+                                                supplier_name, 
+                                                customer_name, 
+                                                tblmaintransaction.reference_id AS mainRef, 
+                                                shippingrate, 
+                                                transaction_id, 
+                                                SUM(amount) as amount 
+                                            FROM tblmaintransaction 
+                                            INNER JOIN tblshippingrate ON tblshippingrate.shippingrate_id=tblmaintransaction.shippingrate_id 
+                                            INNER JOIN tblsupplier ON tblsupplier.supplier_id=tblshippingrate.supplier_id 
+                                            INNER JOIN tblcustomer ON tblcustomer.customer_id=tblmaintransaction.customer_id 
+                                            INNER JOIN tbldeliverytransaction 
+                                            ON tbldeliverytransaction.reference_id=tblmaintransaction.reference_id 
+                                            INNER JOIN tbldeliveryman ON tbldeliveryman.deliveryman_id=tbldeliverytransaction.deliveryman_id 
+                                            WHERE tblmaintransaction.status_id = 2 AND
+                                             tbldeliverytransaction.payed = 1 AND 
+                                             tblsupplier.supplier_id='$supplier_id'
+                                             GROUP BY tdate, 
+                                                date_deliver, 
+                                                supplier_name, 
+                                                customer_name, 
+                                                mainRef, 
+                                                shippingrate, 
+                                                transaction_id");
                                                 $rowSupplierSales = mysqli_fetch_array($querySumSales);
                                          ?>
 
@@ -219,7 +244,32 @@ session_start();
           date_default_timezone_set('Asia/Manila');
           $tdate = date("Y-m-d");
           // echo $tdate;
-            $query = mysqli_query($con, "SELECT *, tblmaintransaction.reference_id as mainRef, SUM(amount) as amount FROM tblmaintransaction INNER JOIN tblshippingrate ON tblshippingrate.shippingrate_id=tblmaintransaction.shippingrate_id INNER JOIN tblsupplier ON tblsupplier.supplier_id=tblshippingrate.supplier_id INNER JOIN tblcustomer ON tblcustomer.customer_id=tblmaintransaction.customer_id INNER JOIN tbldeliverytransaction ON tbldeliverytransaction.reference_id=tblmaintransaction.reference_id INNER JOIN tbldeliveryman ON tbldeliveryman.deliveryman_id=tbldeliverytransaction.deliveryman_id WHERE tblmaintransaction.status_id = 2 AND tbldeliverytransaction.payed = 1 AND tblsupplier.supplier_id='$supplier_id' GROUP BY tblmaintransaction.reference_id");
+            $query = mysqli_query($con, "SELECT 
+            tdate, 
+            date_deliver, 
+            supplier_name, 
+            customer_name, 
+            tblmaintransaction.reference_id AS mainRef, 
+            shippingrate, 
+            transaction_id, 
+            SUM(amount) as amount 
+        FROM tblmaintransaction 
+        INNER JOIN tblshippingrate ON tblshippingrate.shippingrate_id=tblmaintransaction.shippingrate_id 
+        INNER JOIN tblsupplier ON tblsupplier.supplier_id=tblshippingrate.supplier_id 
+        INNER JOIN tblcustomer ON tblcustomer.customer_id=tblmaintransaction.customer_id 
+        INNER JOIN tbldeliverytransaction 
+        ON tbldeliverytransaction.reference_id=tblmaintransaction.reference_id 
+        INNER JOIN tbldeliveryman ON tbldeliveryman.deliveryman_id=tbldeliverytransaction.deliveryman_id 
+        WHERE tblmaintransaction.status_id = 2 AND
+         tbldeliverytransaction.payed = 1 AND 
+         tblsupplier.supplier_id='$supplier_id'
+         GROUP BY tdate, 
+            date_deliver, 
+            supplier_name, 
+            customer_name, 
+            mainRef, 
+            shippingrate, 
+            transaction_id");
             while($row = mysqli_fetch_array($query)){
            ?>
             <tr>

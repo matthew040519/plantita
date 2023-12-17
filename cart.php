@@ -103,6 +103,7 @@ session_start();
                                 <?php 
                                 $customer_id = $_SESSION['customer_id'];
                                         $query = mysqli_query($con, "SELECT * FROM `tblmaintransaction` INNER JOIN tblproducts ON tblproducts.product_id=tblmaintransaction.product_id WHERE tblmaintransaction.customer_id = '$customer_id' and tblmaintransaction.status_id = 0");
+                                        $countrow = mysqli_num_rows($query);
                                         while ($row = mysqli_fetch_array($query)){
                                  ?>
                                 <tr>
@@ -150,7 +151,9 @@ session_start();
                 <div class="col-lg-6 col-sm-6">
                     <div class="update-box" style="float: right;">
                         <!-- <input value="Update Cart" type="submit"> -->
+                        <?php if($countrow > 0) { ?>
                         <a href="checkout.php" class="btn btn-primary">Next</a>
+                        <?php } ?>
                     </div>
                 </div>
             </div>

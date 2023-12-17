@@ -97,7 +97,7 @@ session_start();
                         </div>
                         <div class="card-body">
                         <?php 
-                                $query = mysqli_query($con, "SELECT * FROM tblrequestcustomer INNER JOIN tblcustomer ON tblcustomer.customer_id=tblrequestcustomer.customer_id INNER JOIN tblsupplier ON tblsupplier.supplier_id=tblrequestcustomer.supplier_id WHERE tblrequestcustomer.customer_id = '$customer_id' GROUP BY tblrequestcustomer.supplier_id ORDER BY tblrequestcustomer.reqcust_id DESC");
+                                $query = mysqli_query($con, "SELECT tblrequestcustomer.supplier_id, supplier_name, customer_name, cdate   FROM tblrequestcustomer INNER JOIN tblcustomer ON tblcustomer.customer_id=tblrequestcustomer.customer_id INNER JOIN tblsupplier ON tblsupplier.supplier_id=tblrequestcustomer.supplier_id WHERE tblrequestcustomer.customer_id = '$customer_id' GROUP BY tblrequestcustomer.supplier_id, tblrequestcustomer.supplier_id, supplier_name, customer_name, cdate, tblrequestcustomer.reqcust_id ORDER BY tblrequestcustomer.reqcust_id DESC");
                                 while($row = mysqli_fetch_array($query)){
                          ?>
                             <div class="media mb-3" >

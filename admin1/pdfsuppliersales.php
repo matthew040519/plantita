@@ -4,6 +4,8 @@
 	include('../libs/fpdf.php');
 	$id = $_GET['id'];
 
+	echo $id;
+
 	class PDF extends FPDF
 	{
 		function header()

@@ -177,15 +177,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 								if ($user_type == '1')
 								{
-									$target = "uploaded_files/". basename($_FILES['file']['name']);
-			                                                $namefile = $_FILES["file"]["name"];
 									
-									if (move_uploaded_file($_FILES["file"]["tmp_name"], $target)){
-			                                                $query = mysqli_query($con, "INSERT INTO `tblcustomer`(`customer_id`, `customer_name`, `customer_password`, `address`, `contact_no`, `uploaded_file`) VALUES (NULL, '$fullname', '$password', '$address', '$contactno',  '$namefile')");
-			                                                } 
-			                                                else {
-			                                                  echo "<script>alert('Error!')</script>";
-			                                                }
+									
+									
+			                                                $query = mysqli_query($con, "INSERT INTO `tblcustomer`(`customer_id`, `customer_name`, `customer_password`, `address`, `contact_no`) VALUES (NULL, '$fullname', '$password', '$address', '$contactno')");
+			                                                
 								}
 								else
 								{
