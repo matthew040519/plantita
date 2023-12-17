@@ -109,7 +109,34 @@
                             <div class="tab-content">
                                 <div role="tabpanel" class="tab-pane fade show active" id="grid-view">
                                     <div class="row">
-                                        
+                                        <?php 
+                                                $query = mysqli_query($con, "SELECT * FROM tblproducts INNER JOIN tblsupplier on tblsupplier.supplier_id=tblproducts.supplier_id WHERE tblproducts.active = 1");
+                                                while($row = mysqli_fetch_array($query)){
+                                         ?>
+                                        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4">
+                                            <div class="products-single fix">
+                                                <div class="box-img-hover">
+                                                    <div class="type-lb">
+                                                        <!-- <p class="sale">Sale</p> -->
+                                                    </div>
+                                                    <img style="height: 250px; width: 250px;" src="supplier1/uploaded_image/<?php echo $row['image']; ?>" class="img-fluid" alt="Image">
+                                                    <!-- <div class="mask-icon">
+                                                        <ul>
+                                                            <li><a href="#" data-toggle="tooltip" data-placement="right" title="View"><i class="fas fa-eye"></i></a></li>
+                                                            <li><a href="#" data-toggle="tooltip" data-placement="right" title="Compare"><i class="fas fa-sync-alt"></i></a></li>
+                                                            <li><a href="#" data-toggle="tooltip" data-placement="right" title="Add to Wishlist"><i class="far fa-heart"></i></a></li>
+                                                        </ul>
+                                                        <a class="cart" href="#">Add to Cart</a>
+                                                    </div> -->
+                                                </div>
+                                                <div class="why-text">
+                                                    <h4>Description: <?php echo $row['product_desc']; ?></h4>
+                                                    <h4>Supplier: <?php echo $row['supplier_name']; ?></h4>
+                                                    <h5>&#8369; <?php echo number_format($row['price'], 2); ?></h5>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    <?php } ?>
                                     </div>
                                 </div>
                                 <div role="tabpanel" class="tab-pane fade" id="list-view">
